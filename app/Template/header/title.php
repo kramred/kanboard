@@ -1,6 +1,6 @@
 <h1>
     <span class="logo">
-        <?= $this->url->link('<img src="safari-pinned-tab.svg" style="width: 20px;">', 'DashboardController', 'show', array(), false, '', t('Dashboard')) ?>
+        <?= $this->url->link('<img src="'.$this->url->dir().'assets/img/safari-pinned-tab.svg" style="width: 20px;">', 'DashboardController', 'show', array(), false, '', t('Dashboard')) ?>
     </span>
     <span class="title">
         <?php if (! empty($project) && ! empty($task)): ?>
