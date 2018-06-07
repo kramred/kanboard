@@ -49,7 +49,6 @@ class TaskHelper extends Base
             array(
                 'autofocus',
                 'required',
-                'maxlength="200"',
                 'tabindex="1"',
                 'placeholder="'.t('Title').'"'
             )
@@ -59,6 +58,30 @@ class TaskHelper extends Base
     public function renderDescriptionField(array $values, array $errors)
     {
         return $this->helper->form->textEditor('description', $values, $errors, array('tabindex' => 2));
+    }
+
+    public function renderDescriptionTemplateDropdown($projectId)
+    {
+        $templates = $this->predefinedTaskDescriptionModel->getAll($projectId);
+
+        if (! empty($templates)) {
+            $html = '<div class="dropdown dropdown-smaller">';
+            $html .= '<a href="#" class="dropdown-menu dropdown-menu-link-icon"><i class="fa fa-floppy-o fa-fw" aria-hidden="true"></i>'.t('Template for the task description').' <i class="fa fa-caret-down" aria-hidden="true"></i></a>';
+            $html .= '<ul>';
+
+            foreach ($templates as  $template) {
+                $html .= '<li>';
+                $html .= '<a href="#" data-template-target="textarea[name=description]" data-template="'.$this->helper->text->e($template['description']).'" class="js-template">';
+                $html .= $this->helper->text->e($template['title']);
+                $html .= '</a>';
+                $html .= '</li>';
+            }
+
+            $html .= '</ul></div>';
+            return $html;
+        }
+
+        return '';
     }
 
     public function renderTagField(array $project, array $tags = array())
@@ -242,34 +265,6 @@ class TaskHelper extends Base
         }
 
         return $this->taskModel->getProgress($task, $this->columns[$task['project_id']]);
-    }
-
-    public function getNewTaskDropdown($projectId, $swimlaneId, $columnId)
-    {
-        $providers = $this->externalTaskManager->getProvidersList();
-
-        if (empty($providers)) {
-            return '';
-        }
-
-        $html = '<small class="pull-right"><div class="dropdown">';
-        $html .= '<a href="#" class="dropdown-menu"><i class="fa fa-cloud-download" aria-hidden="true"></i> <i class="fa fa-caret-down"></i></a><ul>';
-
-        foreach ($providers as $providerName) {
-            $link = $this->helper->url->link(
-                t('New External Task: %s', $providerName),
-                'ExternalTaskCreationController',
-                'step1',
-                array('project_id' => $projectId, 'swimlane_id' => $swimlaneId, 'column_id' => $columnId, 'provider_name' => $providerName),
-                false,
-                'js-modal-replace'
-            );
-
-            $html .= '<li><i class="fa fa-fw fa-plus-square" aria-hidden="true"></i> '.$link.'</li>';
-        }
-
-        $html .= '</ul></div></small>';
-        return $html;
     }
 
     public function getNewBoardTaskButton(array $swimlane, array $column)

@@ -20,14 +20,14 @@ defined('CACHE_DIR') or define('CACHE_DIR', DATA_DIR.DIRECTORY_SEPARATOR.'cache'
 
 // Plugins settings
 defined('PLUGINS_DIR') or define('PLUGINS_DIR', ROOT_DIR.DIRECTORY_SEPARATOR.'plugins');
-defined('PLUGIN_API_URL') or define('PLUGIN_API_URL', 'https://kanboard.net/plugins.json');
+defined('PLUGIN_API_URL') or define('PLUGIN_API_URL', 'https://kanboard.org/plugins.json');
 defined('PLUGIN_INSTALLER') or define('PLUGIN_INSTALLER', true);
 
 // Enable/disable debug
 defined('DEBUG') or define('DEBUG', strtolower(getenv('DEBUG')) === 'true');
 
-// Logging drivers: syslog, stdout, stderr or file
-defined('LOG_DRIVER') or define('LOG_DRIVER', '');
+// Logging drivers: syslog, stdout, stderr, system or file
+defined('LOG_DRIVER') or define('LOG_DRIVER', 'system');
 
 // Logging file
 defined('LOG_FILE') or define('LOG_FILE', DATA_DIR.DIRECTORY_SEPARATOR.'debug.log');
@@ -53,9 +53,12 @@ defined('DB_PORT') or define('DB_PORT', null);
 defined('DB_SSL_KEY') or define('DB_SSL_KEY', null);
 defined('DB_SSL_CERT') or define('DB_SSL_CERT', null);
 defined('DB_SSL_CA') or define('DB_SSL_CA', null);
+defined('DB_VERIFY_SERVER_CERT') or define('DB_VERIFY_SERVER_CERT', null);
+defined('DB_TIMEOUT') or define('DB_TIMEOUT', null);
 
 // Database backend group provider
 defined('DB_GROUP_PROVIDER') or define('DB_GROUP_PROVIDER', true);
+defined('DB_USER_PROVIDER') or define('DB_USER_PROVIDER', true);
 
 // LDAP configuration
 defined('LDAP_AUTH') or define('LDAP_AUTH', false);
@@ -146,3 +149,9 @@ defined('HTTP_PROXY_PASSWORD') or define('HTTP_PROXY_PASSWORD', '');
 defined('HTTP_VERIFY_SSL_CERTIFICATE') or define('HTTP_VERIFY_SSL_CERTIFICATE', true);
 
 defined('TOTP_ISSUER') or define('TOTP_ISSUER', 'Kanboard');
+
+// Comma separated list of fields to not synchronize when using external authentication providers
+defined('EXTERNAL_AUTH_EXCLUDE_FIELDS') or define('EXTERNAL_AUTH_EXCLUDE_FIELDS', 'username');
+
+// Documentation URL
+defined('DOCUMENTATION_URL_PATTERN') or define('DOCUMENTATION_URL_PATTERN', 'https://docs.kanboard.org/en/%s/user_guide/%s.html');

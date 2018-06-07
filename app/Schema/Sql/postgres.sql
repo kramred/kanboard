@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.1
--- Dumped by pg_dump version 9.6.1
+-- Dumped from database version 9.6.3
+-- Dumped by pg_dump version 9.6.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -33,8 +33,8 @@ SET default_with_oids = false;
 CREATE TABLE "action_has_params" (
     "id" integer NOT NULL,
     "action_id" integer NOT NULL,
-    "name" character varying(50) NOT NULL,
-    "value" character varying(50) NOT NULL
+    "name" "text" NOT NULL,
+    "value" "text" NOT NULL
 );
 
 
@@ -64,8 +64,8 @@ ALTER SEQUENCE "action_has_params_id_seq" OWNED BY "action_has_params"."id";
 CREATE TABLE "actions" (
     "id" integer NOT NULL,
     "project_id" integer NOT NULL,
-    "event_name" character varying(50) NOT NULL,
-    "action_name" character varying(255) NOT NULL
+    "event_name" "text" NOT NULL,
+    "action_name" "text" NOT NULL
 );
 
 
@@ -197,7 +197,7 @@ CREATE TABLE "comments" (
     "user_id" integer DEFAULT 0,
     "date_creation" bigint NOT NULL,
     "comment" "text",
-    "reference" character varying(50) DEFAULT ''::character varying,
+    "reference" "text" DEFAULT ''::character varying,
     "date_modification" bigint
 );
 
@@ -237,10 +237,10 @@ CREATE TABLE "currencies" (
 
 CREATE TABLE "custom_filters" (
     "id" integer NOT NULL,
-    "filter" character varying(100) NOT NULL,
+    "filter" "text" NOT NULL,
     "project_id" integer NOT NULL,
     "user_id" integer NOT NULL,
-    "name" character varying(100) NOT NULL,
+    "name" "text" NOT NULL,
     "is_shared" boolean DEFAULT false,
     "append" boolean DEFAULT false
 );
@@ -282,7 +282,7 @@ CREATE TABLE "group_has_users" (
 CREATE TABLE "groups" (
     "id" integer NOT NULL,
     "external_id" character varying(255) DEFAULT ''::character varying,
-    "name" character varying(100) NOT NULL
+    "name" "text" NOT NULL
 );
 
 
@@ -405,13 +405,44 @@ CREATE TABLE "plugin_schema_versions" (
 
 
 --
+-- Name: predefined_task_descriptions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE "predefined_task_descriptions" (
+    "id" integer NOT NULL,
+    "project_id" integer NOT NULL,
+    "title" "text" NOT NULL,
+    "description" "text" NOT NULL
+);
+
+
+--
+-- Name: predefined_task_descriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE "predefined_task_descriptions_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: predefined_task_descriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE "predefined_task_descriptions_id_seq" OWNED BY "predefined_task_descriptions"."id";
+
+
+--
 -- Name: project_activities; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE "project_activities" (
     "id" integer NOT NULL,
     "date_creation" bigint NOT NULL,
-    "event_name" character varying(50) NOT NULL,
+    "event_name" "text" NOT NULL,
     "creator_id" integer,
     "project_id" integer,
     "task_id" integer,
@@ -541,8 +572,8 @@ ALTER SEQUENCE "project_has_categories_id_seq" OWNED BY "project_has_categories"
 CREATE TABLE "project_has_files" (
     "id" integer NOT NULL,
     "project_id" integer NOT NULL,
-    "name" character varying(255) NOT NULL,
-    "path" character varying(255) NOT NULL,
+    "name" "text" NOT NULL,
+    "path" "text" NOT NULL,
     "is_image" boolean DEFAULT false,
     "size" integer DEFAULT 0 NOT NULL,
     "user_id" integer DEFAULT 0 NOT NULL,
@@ -701,13 +732,12 @@ ALTER SEQUENCE "project_role_has_restrictions_restriction_id_seq" OWNED BY "proj
 
 CREATE TABLE "projects" (
     "id" integer NOT NULL,
-    "name" character varying(255) NOT NULL,
+    "name" "text" NOT NULL,
     "is_active" boolean DEFAULT true,
     "token" character varying(255),
     "last_modified" bigint DEFAULT 0,
     "is_public" boolean DEFAULT false,
     "is_private" boolean DEFAULT false,
-    "is_everybody_allowed" boolean DEFAULT false,
     "description" "text",
     "identifier" character varying(50) DEFAULT ''::character varying,
     "start_date" character varying(10) DEFAULT ''::character varying,
@@ -716,7 +746,8 @@ CREATE TABLE "projects" (
     "priority_default" integer DEFAULT 0,
     "priority_start" integer DEFAULT 0,
     "priority_end" integer DEFAULT 3,
-    "email" character varying(255)
+    "email" "text",
+    "predefined_email_subjects" "text"
 );
 
 
@@ -784,6 +815,17 @@ CREATE TABLE "schema_version" (
 
 
 --
+-- Name: sessions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE "sessions" (
+    "id" "text" NOT NULL,
+    "expire_at" integer NOT NULL,
+    "data" "text" DEFAULT ''::"text"
+);
+
+
+--
 -- Name: settings; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -834,7 +876,7 @@ ALTER SEQUENCE "subtask_time_tracking_id_seq" OWNED BY "subtask_time_tracking"."
 
 CREATE TABLE "subtasks" (
     "id" integer NOT NULL,
-    "title" character varying(255) NOT NULL,
+    "title" "text" NOT NULL,
     "status" smallint DEFAULT 0,
     "time_estimated" double precision DEFAULT 0,
     "time_spent" double precision DEFAULT 0,
@@ -850,7 +892,7 @@ CREATE TABLE "subtasks" (
 
 CREATE TABLE "swimlanes" (
     "id" integer NOT NULL,
-    "name" character varying(200) NOT NULL,
+    "name" "text" NOT NULL,
     "position" integer DEFAULT 1,
     "is_active" boolean DEFAULT true,
     "project_id" integer,
@@ -915,8 +957,8 @@ CREATE TABLE "task_has_external_links" (
     "id" integer NOT NULL,
     "link_type" character varying(100) NOT NULL,
     "dependency" character varying(100) NOT NULL,
-    "title" character varying(255) NOT NULL,
-    "url" character varying(255) NOT NULL,
+    "title" "text" NOT NULL,
+    "url" "text" NOT NULL,
     "date_creation" integer NOT NULL,
     "date_modification" integer NOT NULL,
     "task_id" integer NOT NULL,
@@ -949,8 +991,8 @@ ALTER SEQUENCE "task_has_external_links_id_seq" OWNED BY "task_has_external_link
 
 CREATE TABLE "task_has_files" (
     "id" integer NOT NULL,
-    "name" character varying(255) NOT NULL,
-    "path" character varying(255),
+    "name" "text" NOT NULL,
+    "path" "text",
     "is_image" boolean DEFAULT false,
     "task_id" integer NOT NULL,
     "date" bigint DEFAULT 0 NOT NULL,
@@ -1057,7 +1099,7 @@ CREATE TABLE "task_has_tags" (
 
 CREATE TABLE "tasks" (
     "id" integer NOT NULL,
-    "title" character varying(255) NOT NULL,
+    "title" "text" NOT NULL,
     "description" "text",
     "date_creation" bigint,
     "color_id" character varying(255),
@@ -1072,7 +1114,7 @@ CREATE TABLE "tasks" (
     "category_id" integer DEFAULT 0,
     "creator_id" integer DEFAULT 0,
     "date_modification" integer DEFAULT 0,
-    "reference" character varying(50) DEFAULT ''::character varying,
+    "reference" "text" DEFAULT ''::character varying,
     "date_started" bigint,
     "time_spent" double precision DEFAULT 0,
     "time_estimated" double precision DEFAULT 0,
@@ -1206,7 +1248,7 @@ CREATE TABLE "user_has_unread_notifications" (
     "id" integer NOT NULL,
     "user_id" integer NOT NULL,
     "date_creation" bigint NOT NULL,
-    "event_name" character varying(50) NOT NULL,
+    "event_name" "text" NOT NULL,
     "event_data" "text" NOT NULL
 );
 
@@ -1236,7 +1278,7 @@ ALTER SEQUENCE "user_has_unread_notifications_id_seq" OWNED BY "user_has_unread_
 
 CREATE TABLE "users" (
     "id" integer NOT NULL,
-    "username" character varying(50) NOT NULL,
+    "username" "text" NOT NULL,
     "password" character varying(255),
     "is_ldap_user" boolean DEFAULT false,
     "name" character varying(255),
@@ -1257,7 +1299,8 @@ CREATE TABLE "users" (
     "role" character varying(25) DEFAULT 'app-user'::character varying NOT NULL,
     "is_active" boolean DEFAULT true,
     "avatar_path" character varying(255),
-    "api_access_token" character varying(255) DEFAULT NULL::character varying
+    "api_access_token" character varying(255) DEFAULT NULL::character varying,
+    "filter" "text" DEFAULT NULL::character varying
 );
 
 
@@ -1348,6 +1391,13 @@ ALTER TABLE ONLY "last_logins" ALTER COLUMN "id" SET DEFAULT "nextval"('"last_lo
 --
 
 ALTER TABLE ONLY "links" ALTER COLUMN "id" SET DEFAULT "nextval"('"links_id_seq"'::"regclass");
+
+
+--
+-- Name: predefined_task_descriptions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "predefined_task_descriptions" ALTER COLUMN "id" SET DEFAULT "nextval"('"predefined_task_descriptions_id_seq"'::"regclass");
 
 
 --
@@ -1665,6 +1715,14 @@ ALTER TABLE ONLY "plugin_schema_versions"
 
 
 --
+-- Name: predefined_task_descriptions predefined_task_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "predefined_task_descriptions"
+    ADD CONSTRAINT "predefined_task_descriptions_pkey" PRIMARY KEY ("id");
+
+
+--
 -- Name: project_activities project_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1798,6 +1856,14 @@ ALTER TABLE ONLY "projects"
 
 ALTER TABLE ONLY "remember_me"
     ADD CONSTRAINT "remember_me_pkey" PRIMARY KEY ("id");
+
+
+--
+-- Name: sessions sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "sessions"
+    ADD CONSTRAINT "sessions_pkey" PRIMARY KEY ("id");
 
 
 --
@@ -2199,6 +2265,14 @@ ALTER TABLE ONLY "password_reset"
 
 
 --
+-- Name: predefined_task_descriptions predefined_task_descriptions_project_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "predefined_task_descriptions"
+    ADD CONSTRAINT "predefined_task_descriptions_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "projects"("id") ON DELETE CASCADE;
+
+
+--
 -- Name: project_activities project_activities_creator_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2550,8 +2624,8 @@ ALTER TABLE ONLY "user_has_unread_notifications"
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.1
--- Dumped by pg_dump version 9.6.1
+-- Dumped from database version 9.6.3
+-- Dumped by pg_dump version 9.6.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -2571,8 +2645,8 @@ INSERT INTO settings (option, value, changed_by, changed_on) VALUES ('board_high
 INSERT INTO settings (option, value, changed_by, changed_on) VALUES ('board_public_refresh_interval', '60', 0, 0);
 INSERT INTO settings (option, value, changed_by, changed_on) VALUES ('board_private_refresh_interval', '10', 0, 0);
 INSERT INTO settings (option, value, changed_by, changed_on) VALUES ('board_columns', '', 0, 0);
-INSERT INTO settings (option, value, changed_by, changed_on) VALUES ('webhook_token', 'd5afda7f7444f8600138b276ae9a3d1e36781c3111ed35a55fc1a3ca3ff5', 0, 0);
-INSERT INTO settings (option, value, changed_by, changed_on) VALUES ('api_token', '8814fa59e03411e82772826d166f5cf444324efefcf334ae64b4921d53f3', 0, 0);
+INSERT INTO settings (option, value, changed_by, changed_on) VALUES ('webhook_token', '60a9320b2835f6fa01f6ec445212e3eb6d919887a81a0414d9928d908315', 0, 0);
+INSERT INTO settings (option, value, changed_by, changed_on) VALUES ('api_token', '5713f6ffb5fdef788497bf45e43cedaeff565135f8ad3a5015ab338f5251', 0, 0);
 INSERT INTO settings (option, value, changed_by, changed_on) VALUES ('application_language', 'en_US', 0, 0);
 INSERT INTO settings (option, value, changed_by, changed_on) VALUES ('application_timezone', 'UTC', 0, 0);
 INSERT INTO settings (option, value, changed_by, changed_on) VALUES ('application_url', '', 0, 0);
@@ -2600,8 +2674,8 @@ INSERT INTO settings (option, value, changed_by, changed_on) VALUES ('password_r
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.1
--- Dumped by pg_dump version 9.6.1
+-- Dumped from database version 9.6.3
+-- Dumped by pg_dump version 9.6.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -2641,4 +2715,4 @@ SELECT pg_catalog.setval('links_id_seq', 11, true);
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO users (username, password, role) VALUES ('admin', '$2y$10$0WR8YPAwOCrDQTRFjji6u.krMgA4PcVsmw3ypmXAkqFKFLwnFOpAG', 'app-admin');INSERT INTO schema_version VALUES ('102');
+INSERT INTO users (username, password, role) VALUES ('admin', '$2y$10$eu5txjAlmBRZYmAcWjHAx.BSCIYL6RMTIyrIWG4eqWFtf62DCJPWy', 'app-admin');INSERT INTO schema_version VALUES ('108');
