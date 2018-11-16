@@ -542,7 +542,8 @@ CREATE TABLE "project_has_categories" (
     "id" integer NOT NULL,
     "name" character varying(255) NOT NULL,
     "project_id" integer NOT NULL,
-    "description" "text"
+    "description" "text",
+    "color_id" character varying(255)
 );
 
 
@@ -926,7 +927,8 @@ ALTER SEQUENCE "swimlanes_id_seq" OWNED BY "swimlanes"."id";
 CREATE TABLE "tags" (
     "id" integer NOT NULL,
     "name" character varying(255) NOT NULL,
-    "project_id" integer NOT NULL
+    "project_id" integer NOT NULL,
+    "color_id" character varying(255)
 );
 
 
@@ -2715,4 +2717,5 @@ SELECT pg_catalog.setval('links_id_seq', 11, true);
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO users (username, password, role) VALUES ('admin', '$2y$10$eu5txjAlmBRZYmAcWjHAx.BSCIYL6RMTIyrIWG4eqWFtf62DCJPWy', 'app-admin');INSERT INTO schema_version VALUES ('108');
+INSERT INTO users (username, password, role) VALUES ('admin', '$2y$10$eu5txjAlmBRZYmAcWjHAx.BSCIYL6RMTIyrIWG4eqWFtf62DCJPWy', 'app-admin');
+INSERT INTO schema_version VALUES ('111');

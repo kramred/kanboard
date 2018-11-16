@@ -1,13 +1,45 @@
-Unreleased
-----------
+Version 1.2.6 (October 10, 2018)
+--------------------------------
 
-New features:
+* Escape table name 'groups' because groups is a reserved word as of MySql 8.0.2
+* Reduce number of SQL queries when doing groups sync
+* Make swimlane filter compatible with numeric title
+* Duplicate reference fields when duplicating a task
+* Do not try to redirect to login page when offline
+* Define fixed width for auto-complete dropdown
+* Fix task drag and drop slowdown when a column is hidden
+* Make PLUGINS_DIR absolute in config.default.php
+* Add custom roles project duplication
+* Allow 'No assignee' for external task on single user public boards
+* Add tag and category colors
+* Exclude task links and user mentions from nesting (Markdown parser)
+* When forcing HTTPS, handle subfolder URLs properly
+* Add search within a range of dates for completion, modification, creation, and moved fields
+* Update Docker image to Alpine Linux 3.8
+* Make sure the presense of mod_env is checked in .htaccess
+* Make HTTP client timeout configurable
+* Use SET NAMES instead of charset for MySQL connection
+* Vendoring deprecated Composer libs
+* Update translations and fix typos
 
-* Ability to run cron jobs by calling URL
+Version 1.2.5 (June 15, 2018)
+-----------------------------
 
-Bug fixes:
-
-* Fix the "users.language" column size
+* Update jQuery to latest version
+* Defer javascript files loading by default
+* Add quick link "assign me" in different views
+* Add bulk task operations in list view
+* Add checkboxes in list view to move tasks to another column at once
+* Make sure automatic actions are applied to all tasks when using bulk operations
+* Add ability to run cron jobs by calling URL
+* Add basic print stylesheet
+* Add dashboard and search task footer hooks
+* Reword project settings label
+* Improve Docker image config overrides
+* Fix cronjob in Docker image
+* Increase Nginx fastcgi buffers for Docker image
+* Increase size of the "users.language" column
+* Update translations and improve English texts
 
 Version 1.2.4 (May 16, 2018)
 ----------------------------
