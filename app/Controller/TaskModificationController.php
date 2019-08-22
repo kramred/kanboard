@@ -22,6 +22,10 @@ class TaskModificationController extends BaseController
         if (! $this->helper->projectRole->canUpdateTask($task)) {
             throw new AccessForbiddenException(t('You are not allowed to update tasks assigned to someone else.'));
         }
+        
+        if (! $this->helper->projectRole->canChangeAssignee($task)) {
+            throw new AccessForbiddenException(t('You are not allowed to change the assignee.'));
+        }
 
         $this->taskModificationModel->update($values);
         $this->redirectAfterQuickAction($task);
@@ -113,7 +117,7 @@ class TaskModificationController extends BaseController
             try {
                 $taskProvider = $this->externalTaskManager->getProvider($task['external_provider']);
                 $params['template'] = $taskProvider->getModificationFormTemplate();
-                $params['external_task'] = $taskProvider->fetch($task['external_uri']);
+                $params['external_task'] = $taskProvider->fetch($task['external_uri'], $task['project_id']);
             } catch (ExternalTaskAccessForbiddenException $e) {
                 throw new AccessForbiddenException($e->getMessage());
             } catch (ExternalTaskException $e) {
