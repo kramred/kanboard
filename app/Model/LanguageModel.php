@@ -29,8 +29,10 @@ class LanguageModel extends Base
             'cs_CZ',
             'da_DK',
             'de_DE',
+            'en_GB',
             'en_US',
             'es_ES',
+            'es_VE',
             'fr_FR',
             'el_GR',
             'it_IT',
@@ -46,6 +48,7 @@ class LanguageModel extends Base
             'ru_RU',
             'sr_Latn_RS',
             'fi_FI',
+            'sk_SK',
             'sv_SE',
             'tr_TR',
             'uk_UA',
@@ -55,6 +58,7 @@ class LanguageModel extends Base
             'ja_JP',
             'th_TH',
             'vi_VN',
+            'fa_IR',
         );
     }
 
@@ -89,8 +93,10 @@ class LanguageModel extends Base
             'cs_CZ' => 'Čeština',
             'da_DK' => 'Dansk',
             'de_DE' => 'Deutsch',
-            'en_US' => 'English',
-            'es_ES' => 'Español',
+            'en_GB' => 'English (GB)',
+            'en_US' => 'English (US)',
+            'es_ES' => 'Español (España)',
+            'es_VE' => 'Español (Venezuela)',
             'fr_FR' => 'Français',
             'el_GR' => 'Grec',
             'hr_HR' => 'Hrvatski',
@@ -106,6 +112,7 @@ class LanguageModel extends Base
             'ru_RU' => 'Русский',
             'sr_Latn_RS' => 'Srpski',
             'fi_FI' => 'Suomi',
+            'sk_SK' => 'Slovenčina',
             'sv_SE' => 'Svenska',
             'tr_TR' => 'Türkçe',
             'uk_UA' => 'Українська',
@@ -115,6 +122,7 @@ class LanguageModel extends Base
             'ja_JP' => '日本語',
             'th_TH' => 'ไทย',
             'vi_VN' => 'Tiếng Việt',
+            'fa_IR' => 'فارسی',
         );
 
         if ($prepend) {
@@ -137,8 +145,10 @@ class LanguageModel extends Base
             'ca_ES' => 'ca',
             'da_DK' => 'da',
             'de_DE' => 'de',
+            'en_GB' => 'en-GB',
             'en_US' => 'en',
-            'es_ES' => 'es',
+            'es_ES' => 'es-ES',
+            'es_VE' => 'es-VE',
             'fr_FR' => 'fr',
             'it_IT' => 'it',
             'hr_HR' => 'hr',
@@ -152,6 +162,7 @@ class LanguageModel extends Base
             'ru_RU' => 'ru',
             'sr_Latn_RS' => 'sr',
             'fi_FI' => 'fi',
+            'sk_SK' => 'sk',
             'sv_SE' => 'sv',
             'tr_TR' => 'tr',
             'uk_UA' => 'uk',
@@ -162,6 +173,7 @@ class LanguageModel extends Base
             'th_TH' => 'th',
             'id_ID' => 'id',
             'el_GR' => 'el',
+            'fa_IR' => 'fa',
         );
 
         $lang = $this->getCurrentLanguage();

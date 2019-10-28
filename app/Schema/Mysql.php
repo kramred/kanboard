@@ -8,7 +8,17 @@ use PDO;
 use Kanboard\Core\Security\Token;
 use Kanboard\Core\Security\Role;
 
-const VERSION = 131;
+const VERSION = 133;
+
+function version_133(PDO $pdo)
+{
+    $pdo->exec('ALTER TABLE `tags` ADD COLUMN `color_id` VARCHAR(50) DEFAULT NULL');
+}
+
+function version_132(PDO $pdo)
+{
+    $pdo->exec('ALTER TABLE `project_has_categories` ADD COLUMN `color_id` VARCHAR(50) DEFAULT NULL');
+}
 
 function version_131(PDO $pdo)
 {
@@ -497,7 +507,7 @@ function version_96(PDO $pdo)
             `group_id` INT NOT NULL,
             `project_id` INT NOT NULL,
             `role` VARCHAR(25) NOT NULL,
-            FOREIGN KEY(group_id) REFERENCES groups(id) ON DELETE CASCADE,
+            FOREIGN KEY(group_id) REFERENCES `groups`(id) ON DELETE CASCADE,
             FOREIGN KEY(project_id) REFERENCES projects(id) ON DELETE CASCADE,
             UNIQUE(group_id, project_id)
         ) ENGINE=InnoDB CHARSET=utf8
@@ -525,7 +535,7 @@ function version_96(PDO $pdo)
 function version_95(PDO $pdo)
 {
     $pdo->exec("
-        CREATE TABLE groups (
+        CREATE TABLE `groups` (
             id INT NOT NULL AUTO_INCREMENT,
             external_id VARCHAR(255) DEFAULT '',
             name VARCHAR(100) NOT NULL UNIQUE,
@@ -537,7 +547,7 @@ function version_95(PDO $pdo)
         CREATE TABLE group_has_users (
             group_id INT NOT NULL,
             user_id INT NOT NULL,
-            FOREIGN KEY(group_id) REFERENCES groups(id) ON DELETE CASCADE,
+            FOREIGN KEY(group_id) REFERENCES `groups`(id) ON DELETE CASCADE,
             FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE,
             UNIQUE(group_id, user_id)
         ) ENGINE=InnoDB CHARSET=utf8
@@ -1059,17 +1069,32 @@ function version_46(PDO $pdo)
     $pdo->exec("CREATE UNIQUE INDEX task_has_links_unique ON task_has_links(link_id, task_id, opposite_task_id)");
 
     $rq = $pdo->prepare('INSERT INTO links (label, opposite_id) VALUES (?, ?)');
+    
+    # ID cannot be known at time of record creation so we have to update it after the fact
+    # On MariaDB clusters auto-increment size is normally != 1, so relying on increments of 1 would break
+    $arq = $pdo->prepare('UPDATE links SET opposite_id=? WHERE label=?');
+
     $rq->execute(array('relates to', 0));
-    $rq->execute(array('blocks', 3));
-    $rq->execute(array('is blocked by', 2));
-    $rq->execute(array('duplicates', 5));
-    $rq->execute(array('is duplicated by', 4));
-    $rq->execute(array('is a child of', 7));
-    $rq->execute(array('is a parent of', 6));
-    $rq->execute(array('targets milestone', 9));
-    $rq->execute(array('is a milestone of', 8));
-    $rq->execute(array('fixes', 11));
-    $rq->execute(array('is fixed by', 10));
+
+    $rq->execute(array('blocks', 0));
+    $rq->execute(array('is blocked by', get_last_insert_id($pdo)));
+    $arq->execute(array(get_last_insert_id($pdo), 'blocks'));
+
+    $rq->execute(array('duplicates', 0));
+    $rq->execute(array('is duplicated by', get_last_insert_id($pdo)));
+    $arq->execute(array(get_last_insert_id($pdo), 'duplicates'));
+
+    $rq->execute(array('is a parent of', 0));
+    $rq->execute(array('is a child of', get_last_insert_id($pdo)));
+    $arq->execute(array(get_last_insert_id($pdo), 'is a parent of'));
+
+    $rq->execute(array('is a milestone of', 0));
+    $rq->execute(array('targets milestone', get_last_insert_id($pdo)));
+    $arq->execute(array(get_last_insert_id($pdo), 'is a milestone of'));
+
+    $rq->execute(array('is fixed by', 0));
+    $rq->execute(array('fixes', get_last_insert_id($pdo)));
+    $arq->execute(array(get_last_insert_id($pdo), 'is fixed by'));
 }
 
 function version_45(PDO $pdo)
