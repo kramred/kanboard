@@ -28,7 +28,7 @@
         "ext-session" : "*",
         "christian-riesen/otp" : "1.4.3",
         "eluceo/ical": "0.10.1",
-        "erusev/parsedown" : "1.7.1",
+        "erusev/parsedown" : "^1.7",
         "paragonie/random_compat": "2.0.11",
         "pimple/pimple" : "3.2.2",
         "psr/log": "~1.0",
@@ -60,6 +60,7 @@
         "symfony/stopwatch" : "3.4.2",
         "myclabs/deep-copy": "1.7.0",
         "phpunit/phpunit" : "5.7.24",
-        "phpunit/phpunit-selenium": "3.0.3"
+        "phpunit/phpunit-selenium": "3.0.3",
+        "roave/security-advisories": "dev-master"
     }
 }

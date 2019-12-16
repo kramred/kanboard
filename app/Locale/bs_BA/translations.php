@@ -528,6 +528,7 @@ return array(
     'RSD - Serbian dinar' => 'RSD - Srpski dinar',
     // 'CNY - Chinese Yuan' => '',
     'USD - US Dollar' => 'USD - Američki dolar',
+    // 'VES - Venezuelan Bolívar' => '',
     'Destination column' => 'Odredišna kolona',
     'Move the task to another column when assigned to a user' => 'Premjesti zadatak u neku drugu kolonu kada se dodijeli izvršiocu',
     'Move the task to another column when assignee is cleared' => 'Premjesti zadatak u neku drugu kolonu kada se ukloni izvršilac',
@@ -1403,7 +1404,8 @@ return array(
     // '%s moved the task #%d "%s" to the project "%s"' => '',
     // 'Task #%d "%s" has been moved to the project "%s"' => '',
     // 'Move the task to another column when the due date is less than a certain number of days' => '',
-    // 'Automatically update the start date when task move away from certain column' => '',
+    // 'Automatically update the start date when the task is moved away from a specific column' => '',
     // 'HTTP Client:' => '',
     // 'XBT - bitcoin' => '',
+    // 'Assigned' => '',
 );

@@ -528,6 +528,7 @@ return array(
     'RSD - Serbian dinar' => 'RSD - Serbische Dinar',
     // 'CNY - Chinese Yuan' => '',
     'USD - US Dollar' => 'USD - US Dollar',
+    // 'VES - Venezuelan Bolívar' => '',
     'Destination column' => 'Cílový sloupec',
     'Move the task to another column when assigned to a user' => 'Přesunout úkol do jiného sloupce, když je úkol přiřazen uživateli.',
     'Move the task to another column when assignee is cleared' => 'Přesunout úkol do jiného sloupce, když je pověření uživatele vymazáno.',
@@ -1403,7 +1404,8 @@ return array(
     // '%s moved the task #%d "%s" to the project "%s"' => '',
     // 'Task #%d "%s" has been moved to the project "%s"' => '',
     // 'Move the task to another column when the due date is less than a certain number of days' => '',
-    // 'Automatically update the start date when task move away from certain column' => '',
+    // 'Automatically update the start date when the task is moved away from a specific column' => '',
     // 'HTTP Client:' => '',
     // 'XBT - bitcoin' => '',
+    // 'Assigned' => '',
 );

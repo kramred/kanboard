@@ -528,6 +528,7 @@ return array(
     'RSD - Serbian dinar' => 'RSD - szerb dinár',
     'CNY - Chinese Yuan' => 'CNY - kínai jüan',
     'USD - US Dollar' => 'USD - amerikai dollár',
+    // 'VES - Venezuelan Bolívar' => '',
     'Destination column' => 'Céloszlop',
     'Move the task to another column when assigned to a user' => 'Feladat áthelyezése másik oszlopba, amikor egy felhasználóhoz rendelik',
     'Move the task to another column when assignee is cleared' => 'Feladat áthelyezése másik oszlopba, amikor a felelőst törlik',
@@ -1403,7 +1404,8 @@ return array(
     // '%s moved the task #%d "%s" to the project "%s"' => '',
     // 'Task #%d "%s" has been moved to the project "%s"' => '',
     // 'Move the task to another column when the due date is less than a certain number of days' => '',
-    // 'Automatically update the start date when task move away from certain column' => '',
+    // 'Automatically update the start date when the task is moved away from a specific column' => '',
     // 'HTTP Client:' => '',
     // 'XBT - bitcoin' => '',
+    // 'Assigned' => '',
 );

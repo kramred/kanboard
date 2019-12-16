@@ -528,6 +528,7 @@ return array(
     'RSD - Serbian dinar' => 'RSD - セルビアデナール',
     'CNY - Chinese Yuan' => 'CNY - 中国元',
     'USD - US Dollar' => 'USD - 米ドル',
+    // 'VES - Venezuelan Bolívar' => '',
     'Destination column' => '移動先のカラム',
     'Move the task to another column when assigned to a user' => 'ユーザーの割当てをしたらタスクを他のカラムに移動',
     'Move the task to another column when assignee is cleared' => 'ユーザーの割当てがなくなったらタスクを他のカラムに移動',
@@ -1403,7 +1404,8 @@ return array(
     '%s moved the task #%d "%s" to the project "%s"' => '%s がタスク #%d "%s" をプロジェクト "%s" に移動しました',
     'Task #%d "%s" has been moved to the project "%s"' => 'タスク#%d "%s" はプロジェクト "%s" へ移動されました ',
     'Move the task to another column when the due date is less than a certain number of days' => '期限までの日数が規定値以下になったら、タスクを別のカラムに移動する',
-    // 'Automatically update the start date when task move away from certain column' => '',
+    'Automatically update the start date when the task is moved away from a specific column' => 'タスクが特定のカラムから移動された時、自動的に開始日を更新する',
     'HTTP Client:' => 'HTTPクライアント',
     'XBT - bitcoin' => 'XBT - bitcoin',
+    // 'Assigned' => '',
 );

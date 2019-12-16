@@ -528,6 +528,7 @@ return array(
     'RSD - Serbian dinar' => 'RSD - Serbiske dinarer',
     'CNY - Chinese Yuan' => 'CNY - Kinesiske yuan',
     'USD - US Dollar' => 'USD - Amerikanske dollar',
+    // 'VES - Venezuelan Bolívar' => '',
     'Destination column' => 'Ny kolonne',
     'Move the task to another column when assigned to a user' => 'Flytt oppgaven til en annen kolonne når den er tildelt en bruker',
     'Move the task to another column when assignee is cleared' => 'Flytt oppgaven til en annen kolonne når ppgavetildeling fjernes ',
@@ -1403,7 +1404,8 @@ return array(
     // '%s moved the task #%d "%s" to the project "%s"' => '',
     // 'Task #%d "%s" has been moved to the project "%s"' => '',
     // 'Move the task to another column when the due date is less than a certain number of days' => '',
-    // 'Automatically update the start date when task move away from certain column' => '',
+    // 'Automatically update the start date when the task is moved away from a specific column' => '',
     // 'HTTP Client:' => '',
     // 'XBT - bitcoin' => '',
+    // 'Assigned' => '',
 );
