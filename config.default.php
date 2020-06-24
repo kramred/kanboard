@@ -135,7 +135,7 @@ define('LDAP_USER_BASE_DN', '');
 define('LDAP_USER_FILTER', '');
 
 // LDAP attribute for username
-// Example for ActiveDirectory: 'samaccountname'
+// Example for ActiveDirectory: 'sAMAccountName'
 // Example for OpenLDAP: 'uid'
 define('LDAP_USER_ATTRIBUTE_USERNAME', 'uid');
 
@@ -183,6 +183,10 @@ define('LDAP_GROUP_FILTER', '');
 // If this filter is configured, Kanboard will search user groups in LDAP_GROUP_BASE_DN with this filter
 // Example for OpenLDAP: (&(objectClass=posixGroup)(memberUid=%s))
 define('LDAP_GROUP_USER_FILTER', '');
+
+// LDAP attribute for the user in the group filter
+// 'username' or 'dn'
+define('LDAP_GROUP_USER_ATTRIBUTE', 'username');
 
 // LDAP attribute for the group name
 define('LDAP_GROUP_ATTRIBUTE_NAME', 'cn');
